@@ -22,11 +22,10 @@ public class BarPlot : Plot
     {
         for (int posIdx = 0; posIdx < data.Length; posIdx++)
         {
-            //GameObject instance = GameObject.Instantiate(plotModel, data[posIdx], Quaternion.identity);
-            //instance.Transform.localScale = new Vector3(1f, Random.Range(0.0f, 5.0f), 1f);
-            plotModelInstances[posIdx] = GameObject.Instantiate(plotModel, data[posIdx], Quaternion.identity);
-            
-            plotModelInstances[posIdx].transform.localScale = new Vector3(1f, Random.Range(0.0f, 5.0f), 1f);
+            plotModelInstances[posIdx] = GameObject.Instantiate(plotModel, new Vector3(data[posIdx].x,0f,data[posIdx].y), Quaternion.identity);
+            plotModelInstances[posIdx].transform.localScale = new Vector3(1f, data[posIdx].z/1200, 1f);
+
+            plotModelInstances[posIdx].GetComponent<MeshRenderer>().material.color = MiscUtils.GetColor(data[posIdx].z/1200, StaticValues.jet);
             
         }
     }
@@ -36,6 +35,15 @@ public class BarPlot : Plot
         foreach(GameObject modelInstance in plotModelInstances)
         {
             modelInstance.GetComponent<MeshRenderer>().material.color = color;
+        }
+    }
+
+    public void ColorPlotRandom()
+    {
+        foreach(GameObject modelInstance in plotModelInstances)
+        {
+            float value = Random.Range(0f,1f);
+            modelInstance.GetComponent<MeshRenderer>().material.color = MiscUtils.GetColor(value, StaticValues.jet);
         }
     }
 }
