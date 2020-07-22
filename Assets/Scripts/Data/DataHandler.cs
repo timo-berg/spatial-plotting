@@ -1,48 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
 using UnityEngine;
-using System.Text.RegularExpressions;
 
+/// <summary>
+/// Class which handels all functions regarding data reading, parsing, and output
+/// </summary>
 public static class DataHandler
 {
-    public static string[] GetLinesFromTextResource( string resourceName )
+	/// <summary>
+	/// Read in a .txt or .csv file and return its lines as a string array
+	/// </summary>
+	public static string[] GetLinesFromTextResource(string resourceName)
 	{
-		TextAsset textAsset = (TextAsset) Resources.Load(resourceName, typeof(TextAsset));
-        string[] lines = Regex.Split(textAsset.text, "\n");
-        Resources.UnloadAsset(textAsset);
-		
+
+
+		TextAsset textAsset = (TextAsset)Resources.Load(resourceName, typeof(TextAsset));
+		string[] lines = Regex.Split(textAsset.text, "\n");
+		Resources.UnloadAsset(textAsset);
+
 		return lines;
 	}
 
-    public static BarDataPoint[] ParseBarPlotData(string[] data)
-    {
-        string[] xCoordsStrings = data[0].Split(',');
-        string[] yCoordsStrings = data[1].Split(',');
-        string[] valuesStrings = data[2].Split(',');
-
-        BarDataPoint[] parsedData = new BarDataPoint[valuesStrings.Length];
-
-        for (int idx = 0; idx < valuesStrings.Length; idx++)
-        {
-            parsedData[idx] = new BarDataPoint(new TwoCoords(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx])) , float.Parse(valuesStrings[idx]));
-        }
-
-        return parsedData;
-    }
-
-    public static ScatterDataPoint[] ParseScatterPlotData(string[] data)
+	/// <summary>
+	/// Parser for BarPlot data. Takes in a string array from GetLinesFromTextResource,
+	/// converts it to an array of BarDataPoints, and returns it
+	/// </summary>
+	public static BarDataPoint[] ParseBarPlotData(string[] data)
 	{
-        string[] xCoordsStrings = data[0].Split(',');
-        string[] yCoordsStrings = data[1].Split(',');
-        string[] zCoordsStrings = data[2].Split(',');
 
-        ScatterDataPoint[] parsedData = new ScatterDataPoint[xCoordsStrings.Length];
 
-        for (int idx = 0; idx < xCoordsStrings.Length; idx++)
-        {
-            parsedData[idx] = new ScatterDataPoint(new ThreeCoords(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx]), float.Parse(zCoordsStrings[idx])), 1f);
-        }
+		string[] xCoordsStrings = data[0].Split(',');
+		string[] yCoordsStrings = data[1].Split(',');
+		string[] valuesStrings = data[2].Split(',');
 
-        return parsedData;
-    }
+		BarDataPoint[] parsedData = new BarDataPoint[valuesStrings.Length];
+
+		for (int idx = 0; idx < valuesStrings.Length; idx++)
+		{
+			parsedData[idx] = new BarDataPoint(new TwoTuple<float>(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx])), float.Parse(valuesStrings[idx]));
+		}
+
+		return parsedData;
+	}
+
+	/// <summary>
+	/// Parser for ScatterPlot data. Takes in a string array from GetLinesFromTextResource,
+	/// converts it to an array of ScatterDataPoints, and returns it
+	/// </summary>
+	public static ScatterDataPoint[] ParseScatterPlotData(string[] data)
+	{
+		string[] xCoordsStrings = data[0].Split(',');
+		string[] yCoordsStrings = data[1].Split(',');
+		string[] zCoordsStrings = data[2].Split(',');
+
+		ScatterDataPoint[] parsedData = new ScatterDataPoint[xCoordsStrings.Length];
+
+		for (int idx = 0; idx < xCoordsStrings.Length; idx++)
+		{
+			parsedData[idx] = new ScatterDataPoint(new ThreeTuple<float>(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx]), float.Parse(zCoordsStrings[idx])), MathFunctions.RandomInt(1, 3));
+		}
+
+		return parsedData;
+	}
 }

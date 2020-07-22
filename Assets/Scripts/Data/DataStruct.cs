@@ -1,61 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/// <summary>
+/// Collection of data structures used throughout the library
+/// </summary>
 
-public struct TwoCoords
-{
-    public float x { get; }
-    public float y { get; }
-       
-    public TwoCoords(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
-    }
-}
+// Generic data types mainly used for coordinates
 
-public struct ThreeCoords
+/// <summary>
+/// Generic struct with two fields of the same type
+/// </summary> 
+public struct TwoTuple<T>
 {
-    public float x { get; }
-    public float y { get; }
-    public float z { get; }
-    public ThreeCoords(float x, float y, float z)
-    {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-}
-
-public struct BarDataPoint
-{
-    public TwoCoords coords { get; }
-    public float value { get; }
-    public BarDataPoint(TwoCoords coords, float value)
-    {
-        this.coords = coords;
-        this.value = value;
-    }
-}
-
-public struct ScatterDataPoint
-{
-    public ThreeCoords coords { get; }
-    public float value { get; }
-    public ScatterDataPoint(ThreeCoords coords, float value)
+	public T x;
+	public T y;
+	public TwoTuple(T x, T y)
 	{
-        this.coords = coords;
-        this.value = value;
+		this.x = x;
+		this.y = y;
 	}
 }
 
-public struct IntTuple
+/// <summary>
+/// Generic struct with three fields of the same type
+/// </summary>
+public struct ThreeTuple<T>
 {
-    public int x;
-    public int y;
-    public IntTuple(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
-    }
+	public T X { get; }
+	public T Y { get; }
+	public T Z { get; }
+	public ThreeTuple(T x, T y, T z)
+	{
+		this.X = x;
+		this.Y = y;
+		this.Z = z;
+	}
 }
+
+// DataPoint structures with properties according to the plot requirements
+
+/// <summary>
+/// Interface that has to be implemented by all data point structs
+/// </summary>
+public interface IDataPoint
+{
+	float Value { get; }
+}
+
+/// <summary>
+/// Data type used for BarPlots. Has 2D coordinates and a value field
+/// </summary>
+public struct BarDataPoint : IDataPoint
+{
+	public TwoTuple<float> Coords { get; }
+	public float Value { get; }
+	public BarDataPoint(TwoTuple<float> Coords, float Value)
+	{
+		this.Coords = Coords;
+		this.Value = Value;
+	}
+}
+
+/// <summary>
+/// Collection of data structures used throughout the library
+/// </summary>
+public struct ScatterDataPoint : IDataPoint
+{
+	public ThreeTuple<float> Coords { get; }
+	public float Value { get; }
+	public ScatterDataPoint(ThreeTuple<float> coords, float value)
+	{
+		this.Coords = coords;
+		this.Value = value;
+	}
+}
+
