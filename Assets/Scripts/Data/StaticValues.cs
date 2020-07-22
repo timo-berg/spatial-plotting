@@ -1,8 +1,8 @@
-﻿public static class StaticValues
+﻿/// <summary>
+/// Collection of immutable variables such as colormaps etc.
+/// </summary>
+public static class StaticValues
 {
-	// Collection of immutable variables such as colormaps etc.
-
-	// Colormaps
 	static float[,] jetArray = new float[,] {
 		{     0f,         0f,    0.5156f},
 		{     0f,         0f,    0.5313f},

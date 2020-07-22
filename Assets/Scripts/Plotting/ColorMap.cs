@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Struct in which a map with 256 color is stored along with a name.
+/// </summary>
 public struct ColorMap
 {
+	public Color[] colors;
+	public string name;
+
 	public ColorMap(float[,] colorValues, string name)
 	{
 		Color[] colors = new Color[256];
@@ -12,7 +18,4 @@ public struct ColorMap
 		this.colors = colors;
 		this.name = name;
 	}
-
-	public Color[] colors;
-	public string name;
 }
