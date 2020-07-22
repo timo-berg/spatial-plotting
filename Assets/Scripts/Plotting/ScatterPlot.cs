@@ -1,30 +1,17 @@
 ﻿using UnityEngine;
 
-public class ScatterPlot : IPlot
+public class ScatterPlot : Plot<ScatterDataPoint>
 {
-	protected GameObject plotModel;
-	protected ScatterDataPoint[] data;
-	protected GameObject[] plotModelInstances;
-
 	protected Vector3 plotCenter;
 	protected float modelSize;
 
-	public ScatterPlot()
+	public ScatterPlot(ScatterDataPoint[] data, GameObject plotModel, float modelSize = 1f, Vector3 plotCenter = default) : base(data, plotModel)
 	{
-		data = new ScatterDataPoint[5];
-		data[0] = new ScatterDataPoint(new ThreeTuple<float>(1f, 1f, 1f), 1f);
-	}
-
-	public ScatterPlot(ScatterDataPoint[] data, GameObject plotModel, float modelSize = 1f, Vector3 plotCenter = default)
-	{
-		this.data = data;
-		this.plotModel = plotModel;
 		this.plotCenter = plotCenter;
 		this.modelSize = modelSize;
-		plotModelInstances = new GameObject[data.Length];
 	}
 
-	public void DrawPlot()
+	public override void DrawPlot()
 	{
 		for (int posIdx = 0; posIdx < data.Length; posIdx++)
 		{

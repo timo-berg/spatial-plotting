@@ -1,46 +1,30 @@
 ﻿using UnityEngine;
 
-public class BarPlot : IPlot
+public class BarPlot : Plot<BarDataPoint>
 {
-	protected GameObject plotModel;
-	protected BarDataPoint[] data;
-	protected GameObject[] plotModelInstances;
-
+	protected Vector2 plotCenter;
 	protected float barWidth;
 	protected float barHeight;
 	protected TwoTuple<int> binCount = new TwoTuple<int>(10, 10);
-	protected Vector2 plotCenter;
 
 
-	public BarPlot()
+	public BarPlot(BarDataPoint[] data, GameObject plotModel, float barWidth = 1, float barHeight = 1, Vector2 plotCenter = default) : base(data, plotModel) 
 	{
-		data = new BarDataPoint[5];
-		data[0] = new BarDataPoint(new TwoTuple<float>(1f, 1f), 1f);
-	}
-
-	public BarPlot(BarDataPoint[] data, GameObject plotModel, float barWidth = 1, float barHeight = 1, Vector2 plotCenter = default(Vector2))
-	{
-		this.data = data;
-		this.plotModel = plotModel;
 		this.barWidth = barWidth;
 		this.barHeight = barHeight;
 		this.plotCenter = plotCenter;
-		plotModelInstances = new GameObject[data.Length];
 	}
 
-	public BarPlot(BarDataPoint[] data, GameObject plotModel, TwoTuple<int> binCount, float barWidth = 1, float barHeight = 1, Vector2 plotCenter = default(Vector2))
+	public BarPlot(BarDataPoint[] data, GameObject plotModel, TwoTuple<int> binCount, float barWidth = 1, float barHeight = 1, Vector2 plotCenter = default) : base(data, plotModel)
 	{
-		this.data = data;
-		this.plotModel = plotModel;
 		this.barWidth = barWidth;
 		this.barHeight = barHeight;
 		this.binCount = binCount;
 		this.plotCenter = plotCenter;
-		plotModelInstances = new GameObject[data.Length];
 	}
 
 
-	public void DrawPlot()
+	public override void DrawPlot()
 	{
 		float maxValue = MathFunctions.MaxBarValue(data);
 
