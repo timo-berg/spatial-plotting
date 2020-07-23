@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 /// <summary>
 /// Generic abstract class from which all Plot classes inherit from.
@@ -10,6 +12,9 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 	protected TDataPoint[] data;
 	public GameObject[] plotModelInstances;
 	protected Vector3 plotAnchor;
+
+	protected GameObject currentSelection;
+	protected GameObject previousSelection;
 
 	/// <summary>
 	/// Constructor of the abstract plot class
@@ -23,7 +28,43 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 		this.plotModel = plotModel;
 		this.plotAnchor = plotAnchor;
 		plotModelInstances = new GameObject[data.Length];
+		currentSelection = null;
+		previousSelection = null;
 	}
 
 	public abstract void DrawPlot();
+
+	public virtual TDataPoint GetDataPoint(GameObject selection)
+	{
+		int matchIndex = Array.FindIndex(plotModelInstances, element => element == selection);
+		if (matchIndex == -1)
+		{
+			return default;
+		} else {
+			return data[matchIndex];
+		}
+	}
+
+	public virtual bool SelectObject(GameObject selection)
+	{
+		var match = Array.Find(plotModelInstances, element => element == selection);
+		if (match != null)
+		{
+			var outline = match.AddComponent<Outline>();
+			outline.OutlineMode = Outline.Mode.OutlineAll;
+			outline.OutlineColor = Color.yellow;
+			outline.OutlineWidth = 5f;
+		}
+
+		currentSelection = match;
+		if (previousSelection != null)
+		{
+			var oldOutline = previousSelection.GetComponent<Outline>();
+			UnityEngine.Object.Destroy(oldOutline);
+		}
+		previousSelection = currentSelection;
+
+		return (match != null) ? true : false;
+
+	}
 }
