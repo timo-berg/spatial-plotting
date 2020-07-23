@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3956524245337893323}
   - component: {fileID: 6816276183224731072}
   - component: {fileID: 7287902551284621855}
-  - component: {fileID: 8811223455085045057}
-  m_Layer: 0
-  m_Name: Sphere
+  - component: {fileID: -6948066211968321819}
+  m_Layer: 8
+  m_Name: sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8811223455085045057
+--- !u!135 &-6948066211968321819
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

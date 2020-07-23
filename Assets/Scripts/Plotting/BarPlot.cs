@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Overloaded Plot class to generate a bivariate bar plot
@@ -8,6 +10,9 @@ public class BarPlot : Plot<BarDataPoint>
 	protected float barWidth;
 	protected float barHeight;
 	protected TwoTuple<int> binCount = new TwoTuple<int>(10, 10);
+
+	GameObject currentSelection;
+	GameObject previousSelection;
 
 	/// <summary>
 	/// Constructor for the bar plot class
@@ -23,6 +28,8 @@ public class BarPlot : Plot<BarDataPoint>
 		this.barWidth = barWidth;
 		this.barHeight = barHeight;
 		this.binCount = binCount;
+		currentSelection = null;
+		previousSelection = null;
 	}
 
 	/// <summary>
@@ -45,7 +52,32 @@ public class BarPlot : Plot<BarDataPoint>
 			plotModelInstances[posIdx].transform.localScale = new Vector3(barWidth, barHeight * (0.001f + data[posIdx].Value / maxValue), barWidth);
 
 			plotModelInstances[posIdx].GetComponent<MeshRenderer>().material.color = MiscUtils.GetColor(data[posIdx].Value / maxValue, StaticValues.jet);
-
 		}
+	}
+
+	public void SelectObject(GameObject selection)
+	{
+		var match = Array.Find(plotModelInstances, element => element == selection);
+		if (match != null)
+		{
+			var outline = match.AddComponent<Outline>();
+			outline.OutlineMode = Outline.Mode.OutlineAll;
+			outline.OutlineColor = Color.yellow;
+			outline.OutlineWidth = 5f;
+		}
+
+		currentSelection = match;
+		if (previousSelection != null)
+		{
+			var oldOutline = previousSelection.GetComponent<Outline>();
+			UnityEngine.Object.Destroy(oldOutline);
+		}
+		previousSelection = currentSelection;
+	}
+
+	public BarDataPoint GetDataPoint(GameObject selection)
+	{
+		int matchIndex = Array.FindIndex(plotModelInstances, element => element == selection);
+		return data[matchIndex];
 	}
 }

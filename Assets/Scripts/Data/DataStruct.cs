@@ -2,7 +2,6 @@
 /// Collection of data structures used throughout the library
 /// </summary>
 
-// Generic data types mainly used for coordinates
 
 /// <summary>
 /// Generic struct with two fields of the same type
@@ -15,6 +14,11 @@ public struct TwoTuple<T>
 	{
 		this.x = x;
 		this.y = y;
+	}
+
+	public override string ToString()
+	{
+		return "(" + x + ", " + y + ")";
 	}
 }
 
@@ -32,6 +36,11 @@ public struct ThreeTuple<T>
 		this.Y = y;
 		this.Z = z;
 	}
+
+	public override string ToString()
+	{
+		return "(" + X + ", " + Y + ", " + Z + ")";
+	}
 }
 
 // DataPoint structures with properties according to the plot requirements
@@ -42,6 +51,8 @@ public struct ThreeTuple<T>
 public interface IDataPoint
 {
 	float Value { get; }
+
+	string ToString();
 }
 
 /// <summary>
@@ -56,6 +67,11 @@ public struct BarDataPoint : IDataPoint
 		this.Coords = Coords;
 		this.Value = Value;
 	}
+
+	public override string ToString()
+	{
+		return "Coordinates: " + Coords + "; Value: " + Value;
+	}
 }
 
 /// <summary>
@@ -69,6 +85,11 @@ public struct ScatterDataPoint : IDataPoint
 	{
 		this.Coords = coords;
 		this.Value = value;
+	}
+
+	public override string ToString()
+	{
+		return "Coordinates: " + Coords + "; Value: " + Value;
 	}
 }
 

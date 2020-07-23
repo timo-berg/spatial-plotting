@@ -8,7 +8,7 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 {
 	protected GameObject plotModel;
 	protected TDataPoint[] data;
-	protected GameObject[] plotModelInstances;
+	public GameObject[] plotModelInstances;
 	protected Vector3 plotAnchor;
 
 	/// <summary>
