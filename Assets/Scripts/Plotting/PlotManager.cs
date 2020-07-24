@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using Valve.VR;
 
+/// <summary>
+/// Class that stores and handles the plot creation and visibility.
+/// Responsible for loading data, generating the plot and selecting data points.
+/// </summary>
 public class PlotManager : MonoBehaviour
 {
 	public GameObject cube;
@@ -39,7 +43,11 @@ public class PlotManager : MonoBehaviour
 		Selection();
 	}
 
-
+	/// <summary>
+	/// Listens to left mouse click(Desktop)/index finger click (VR) and 
+	/// checks whether the object that the Desktop player is looking/ VR 
+	/// player pointing at is a data point. Highlight it if yes.
+	/// </summary>
 	void Selection()
 	{
 		if (Input.GetMouseButtonDown(0) || VRInput.Instance.GetGrabPinchState())

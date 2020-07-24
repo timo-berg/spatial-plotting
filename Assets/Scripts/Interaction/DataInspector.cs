@@ -1,41 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 
+/// <summary>
+/// Data Inspector Panel content controller.
+/// </summary>
 public class DataInspector : MonoBehaviour
 {
-    public TextMeshProUGUI messageText;
-    public GameObject dataInspectorCanvas;
+	public Camera desktopCamera;
+	public Camera vrCamera;
+	private Camera playerCamera;
 
-    float targetShowDuration;
-    float showingTime;
-    bool isShowingText;
+	public TextMeshProUGUI messageText;
+	public GameObject dataInspectorCanvas;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	float targetShowDuration;
+	float showingTime;
+	bool isShowingText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Update()
+	{
+		LookAtPlayer();
+	}
 
-    public void HideMessage()
-    {
-        dataInspectorCanvas.SetActive(false);
-        messageText.text = "";
-        isShowingText = false;
-    }
-    
-    public void ShowText(string text)
-    {
-        isShowingText = true;
+	public void HideMessage()
+	{
+		dataInspectorCanvas.SetActive(false);
+		messageText.text = "";
+		isShowingText = false;
+	}
 
-        dataInspectorCanvas.SetActive(true);
-        messageText.text = text;
-    }
+	/// <summary>
+	/// Print text to the panel
+	/// </summary>
+	public void ShowText(string text)
+	{
+		isShowingText = true;
+
+		dataInspectorCanvas.SetActive(true);
+		messageText.text = text;
+	}
+
+	/// <summary>
+	/// Makes the panel always face the player
+	/// TODO: Remove roll in VR
+	/// </summary>
+	void LookAtPlayer()
+	{
+		if (PlayerManager.Instance.isVR)
+		{
+			playerCamera = vrCamera;
+		} else
+		{
+			playerCamera = desktopCamera;
+		}
+
+		Vector3 v = playerCamera.transform.position - transform.position;
+		v.x = v.z = 0.0f;
+		transform.LookAt(playerCamera.transform.position);
+		transform.rotation = (playerCamera.transform.rotation);
+	}
 }

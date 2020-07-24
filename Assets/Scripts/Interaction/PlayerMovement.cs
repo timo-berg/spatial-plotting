@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Desktop player controller that is responsible for movement in space.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Dekstop player Camera controller
+/// </summary>
 public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
@@ -9,22 +12,19 @@ public class MouseLook : MonoBehaviour
     float xRotation = 0f;
     public GameObject dataInspector;
 
-    GameObject previousSelection;
-    GameObject currentSelection;
-
 	void Start()
 	{
         Cursor.lockState = CursorLockMode.Locked;
-        previousSelection = null;
-
     }
 
 	void Update()
     {
         Movement();
-        //Selection();
     }
 
+    /// <summary>
+    /// Takes the mouse movement and applies it to the desktop camera
+    /// </summary>
     void Movement()
 	{
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -35,33 +35,5 @@ public class MouseLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         playerBody.Rotate(Vector3.up * mouseX);
-    }
-
-    void Selection()
-	{
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hitInfo = new RaycastHit();
-            bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-            if (hit && hitInfo.transform.gameObject.name != "Plane")
-            {
-
-                Debug.Log(hitInfo.transform.gameObject.name);
-                currentSelection = hitInfo.transform.transform.gameObject;
-                dataInspector.transform.position = hitInfo.transform.position + Vector3.up * (hitInfo.transform.localScale.y*2 + 0.25f);
-                var outline = currentSelection.AddComponent<Outline>();
-                outline.OutlineMode = Outline.Mode.OutlineAll;
-                outline.OutlineColor = Color.yellow;
-                outline.OutlineWidth = 5f;
-
-                if(previousSelection != null)
-				{
-                    var oldOutline = previousSelection.GetComponent<Outline>();
-                    Destroy(oldOutline);
-				}
-
-                previousSelection = currentSelection;
-            }
-        }
     }
 }

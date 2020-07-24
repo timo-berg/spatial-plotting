@@ -34,6 +34,14 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 
 	public abstract void DrawPlot();
 
+	/// <summary>
+	/// Returns the data point for the passed GameObject.
+	/// </summary>
+	/// <remarks>
+	/// If the GameObject isn't part of the plot it returns the default value
+	/// of the data point. Use SelectObject() first to check whether the passed
+	/// GameObject is actually part of the plot.
+	/// </remarks>
 	public virtual TDataPoint GetDataPoint(GameObject selection)
 	{
 		int matchIndex = Array.FindIndex(plotModelInstances, element => element == selection);
@@ -45,6 +53,9 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 		}
 	}
 
+	/// <summary>
+	/// Returns true if the passed GameObject is part of that plot and false if it isn"t.
+	/// </summary>
 	public virtual bool SelectObject(GameObject selection)
 	{
 		var match = Array.Find(plotModelInstances, element => element == selection);

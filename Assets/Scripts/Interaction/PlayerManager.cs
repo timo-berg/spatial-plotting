@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-
+/// <summary>
+/// Manages the plaers: Activated/Deactivates the VR/Desktop player
+/// depending on whether an HMD is plugged in or not
+/// </summary>
 public class PlayerManager : Singleton<PlayerManager>
 {
     public GameObject VRplayer;

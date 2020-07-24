@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
 using Valve.VR;
 
+/// <summary>
+/// Class that handles all VR input such as pointing clicking etc.
+/// </summary>
 public class VRInput : Singleton<VRInput>
 {
     public GameObject pointingController;
@@ -22,16 +25,27 @@ public class VRInput : Singleton<VRInput>
         UpdateLength();
 	}
 
+    /// <summary>
+    /// Update the ray length.
+    /// </summary>
     private void UpdateLength()
 	{
         lineRenderer.SetPosition(0, pointingController.transform.position);
         lineRenderer.SetPosition(1, CalculateEnd());
 	}
 
+    /// <summary>
+    /// Calculates end position of pointing ray.
+    /// If the pointing ray hit an object the hit location is the end
+    /// otherwise the ray defaults to its default length.
+    /// </summary>
     private Vector3 CalculateEnd()
 	{
-        RaycastHit hit = CreateForwardRaycast();
-        Vector3 endPosition = DefaultEnd(defaultLength);
+        Ray ray = GetPointingRay();
+
+        Physics.Raycast(ray, out RaycastHit hit, defaultLength);
+    
+        Vector3 endPosition = pointingController.transform.position + (pointingController.transform.forward * defaultLength);
 
         if (hit.collider)
             endPosition = hit.point;
@@ -39,25 +53,19 @@ public class VRInput : Singleton<VRInput>
         return endPosition;
 	}
 
-    private RaycastHit CreateForwardRaycast()
-	{
-		Ray ray = GetPointingRay();
-
-		Physics.Raycast(ray, out RaycastHit hit, defaultLength);
-        return hit;
-	}
-
-    private Vector3 DefaultEnd(float length)
-	{
-        return pointingController.transform.position + (pointingController.transform.forward * length);
-	}
-
-	public Ray GetPointingRay()
+    /// <summary>
+    /// Returns the current pointing ray
+    /// </summary>
+ 	public Ray GetPointingRay()
     {
         return new Ray(pointingController.transform.position, 
                        pointingController.transform.TransformDirection(Vector3.forward));
     }
 
+    /// <summary>
+    /// Returns true if any controller is currently pinching.
+    /// (index finger button on htc controller)
+    /// </summary>
     public bool GetGrabPinchState()
 	{
         return SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any);
