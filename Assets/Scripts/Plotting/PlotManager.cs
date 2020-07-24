@@ -2,6 +2,7 @@
 using UnityEngine.XR;
 using System;
 using System.Collections.Generic;
+using Valve.VR;
 
 public class PlotManager : MonoBehaviour
 {
@@ -13,12 +14,11 @@ public class PlotManager : MonoBehaviour
 	Dictionary<string, BarPlot> barPlotList = new Dictionary<string, BarPlot>();
 	Dictionary<string, ScatterPlot> scatterPlotList = new Dictionary<string, ScatterPlot>();
 
+	Ray ray;
 	bool selected;
 
 	void Start()
 	{
-		XRSettings.enabled = false;
-
 		string barFile = "IMT_sub-009_trial-1_heatmap";
 		string[] barDataString = DataHandler.GetLinesFromTextResource(barFile);
 		BarDataPoint[] barData = DataHandler.ParseBarPlotData(barDataString);
@@ -32,8 +32,6 @@ public class PlotManager : MonoBehaviour
 
 		scatterPlotList.Add("U maze", new ScatterPlot(scatterData, disk, 0.1f, new Vector3(0f, 0f, 0.25f)));
 		scatterPlotList["U maze"].DrawPlot();
-		
-
 	}
 
 	private void Update()
@@ -44,9 +42,18 @@ public class PlotManager : MonoBehaviour
 
 	void Selection()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) || VRInput.Instance.GetGrabPinchState())
 		{
-			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo);
+			if (PlayerManager.Instance.isVR)
+			{
+				ray = VRInput.Instance.GetPointingRay();
+			} else
+			{
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			}
+
+
+			bool hit = Physics.Raycast(ray, out RaycastHit hitInfo);
 			if (hit && hitInfo.transform.gameObject.name != "Plane")
 			{
 				inspector.transform.position = hitInfo.transform.position + Vector3.up * (hitInfo.transform.localScale.y * 2 + 0.25f);
