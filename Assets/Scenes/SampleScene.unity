@@ -234,7 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ebafe18012ef14b8993d885af7c25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1295277911}
+  desktopCamera: {fileID: 1295277911}
+  vrCamera: {fileID: 768359294}
 --- !u!114 &131147555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,6 +907,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758602017}
   m_CullTransparentMesh: 0
+--- !u!20 &768359294 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5988808200750403617, guid: e74a450820e9467488a0ffd0da378cdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 359265125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &774368278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1240,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e40d1b2e502391346996d2c736f8cec3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1259,13 +1266,13 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.01408577
         inSlope: 0
         outSlope: 0
         tangentMode: 0
