@@ -24,6 +24,8 @@ public class ScatterPlot : Plot<ScatterDataPoint>
 	/// </summary>
 	public override void DrawPlot()
 	{
+		base.DrawPlot();
+
 		for (int posIdx = 0; posIdx < data.Length; posIdx++)
 		{
 			tempDataBlock = GameObject.Instantiate(plotModel,

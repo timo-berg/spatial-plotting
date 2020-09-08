@@ -40,7 +40,8 @@ public class PlotManager : MonoBehaviour
 
 	private void Update()
 	{
-		Selection();
+		SelectDataPoint();
+		TogglePlotVisibility();
 	}
 
 	/// <summary>
@@ -48,7 +49,7 @@ public class PlotManager : MonoBehaviour
 	/// checks whether the object that the Desktop player is looking/ VR 
 	/// player pointing at is a data point. Highlight it if yes.
 	/// </summary>
-	void Selection()
+	void SelectDataPoint()
 	{
 		if (Input.GetMouseButtonDown(0) || VRInput.Instance.GetGrabPinchState())
 		{
@@ -64,8 +65,6 @@ public class PlotManager : MonoBehaviour
 			bool hit = Physics.Raycast(ray, out RaycastHit hitInfo);
 			if (hit && hitInfo.transform.gameObject.name != "Plane")
 			{
-				inspector.transform.position = hitInfo.transform.position + Vector3.up * (hitInfo.transform.localScale.y * 2 + 0.25f);
-
 				foreach (KeyValuePair<string, BarPlot> barPlot in barPlotList)
 				{
 					selected = barPlot.Value.SelectObject(hitInfo.transform.transform.gameObject);
@@ -85,6 +84,19 @@ public class PlotManager : MonoBehaviour
 				}
 
 			}
+		}
+	}
+
+	void TogglePlotVisibility()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			barPlotList["U maze"].TogglePlot();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			scatterPlotList["U maze"].TogglePlot();
 		}
 	}
 }

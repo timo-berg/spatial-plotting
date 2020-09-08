@@ -19,6 +19,8 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 	protected MaterialPropertyBlock propertyBlock;
 	protected GameObject tempDataBlock;
 
+	protected bool isVisible; // { protected set; get; }
+
 	/// <summary>
 	/// Constructor of the abstract plot class
 	/// </summary>
@@ -34,9 +36,14 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 		currentSelection = null;
 		previousSelection = null;
 		propertyBlock = new MaterialPropertyBlock();
+		isVisible = false;
 	}
 
-	public abstract void DrawPlot();
+	public virtual void DrawPlot() 
+	{
+		isVisible = true;
+	}
+	
 
 	/// <summary>
 	/// Returns the data point for the passed GameObject.
@@ -55,6 +62,47 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 		} else {
 			return data[matchIndex];
 		}
+	}
+
+	/// <summary>
+	/// Turns on the plot visibility
+	/// </summary>
+	public virtual void ShowPlot()
+	{
+		isVisible = true;
+
+		foreach (GameObject plotElement in plotModelInstances)
+		{
+			plotElement.GetComponent<MeshRenderer>().enabled = true;
+		}
+	}
+
+	/// <summary>
+	/// Turns off the plot visibility
+	/// </summary>
+	public virtual void HidePlot()
+	{
+		isVisible = false;
+
+		foreach (GameObject plotElement in plotModelInstances)
+		{
+			plotElement.GetComponent<MeshRenderer>().enabled = false;
+		}
+	}
+
+	/// <summary>
+	/// Toggles the plot visibility
+	/// </summary>
+	public virtual void TogglePlot()
+	{
+		if(isVisible)
+		{
+			HidePlot();
+		} else
+		{
+			ShowPlot();
+		}
+
 	}
 
 	/// <summary>

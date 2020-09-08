@@ -38,6 +38,8 @@ public class BarPlot : Plot<BarDataPoint>
 	/// </remarks>
 	public override void DrawPlot()
 	{
+		base.DrawPlot();
+
 		float maxValue = MathFunctions.MaxBarValue(data);
 
 		for (int posIdx = 0; posIdx < data.Length; posIdx++)
@@ -54,5 +56,4 @@ public class BarPlot : Plot<BarDataPoint>
 			plotModelInstances[posIdx] = tempDataBlock;
 		}
 	}
-
 }
