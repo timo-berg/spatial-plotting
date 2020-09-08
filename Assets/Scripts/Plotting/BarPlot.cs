@@ -11,6 +11,7 @@ public class BarPlot : Plot<BarDataPoint>
 	protected float barHeight;
 	protected TwoTuple<int> binCount = new TwoTuple<int>(10, 10);
 
+
 	/// <summary>
 	/// Constructor for the bar plot class
 	/// </summary>
@@ -41,12 +42,16 @@ public class BarPlot : Plot<BarDataPoint>
 
 		for (int posIdx = 0; posIdx < data.Length; posIdx++)
 		{
-			plotModelInstances[posIdx] = GameObject.Instantiate(plotModel,
-																plotAnchor + new Vector3(data[posIdx].Coords.x, 0f, data[posIdx].Coords.y),
-																Quaternion.identity);
-			plotModelInstances[posIdx].transform.localScale = new Vector3(barWidth, barHeight * (0.001f + data[posIdx].Value / maxValue), barWidth);
+			tempDataBlock = GameObject.Instantiate(plotModel,
+												plotAnchor + new Vector3(data[posIdx].Coords.x, 0f, data[posIdx].Coords.y),
+												Quaternion.identity);
 
-			plotModelInstances[posIdx].GetComponent<MeshRenderer>().material.color = MiscUtils.GetColor(data[posIdx].Value / maxValue, StaticValues.jet);
+			tempDataBlock.transform.localScale = new Vector3(barWidth, barHeight * (0.001f + data[posIdx].Value / maxValue), barWidth);
+
+			propertyBlock.SetColor("_Color", MiscUtils.GetColor(data[posIdx].Value / maxValue, StaticValues.jet));
+			tempDataBlock.GetComponent<MeshRenderer>().SetPropertyBlock(propertyBlock);
+
+			plotModelInstances[posIdx] = tempDataBlock;
 		}
 	}
 

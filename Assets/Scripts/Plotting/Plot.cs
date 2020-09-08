@@ -16,6 +16,9 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 	protected GameObject currentSelection;
 	protected GameObject previousSelection;
 
+	protected MaterialPropertyBlock propertyBlock;
+	protected GameObject tempDataBlock;
+
 	/// <summary>
 	/// Constructor of the abstract plot class
 	/// </summary>
@@ -30,6 +33,7 @@ public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
 		plotModelInstances = new GameObject[data.Length];
 		currentSelection = null;
 		previousSelection = null;
+		propertyBlock = new MaterialPropertyBlock();
 	}
 
 	public abstract void DrawPlot();

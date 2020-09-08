@@ -20,6 +20,14 @@ public class VRInput : Singleton<VRInput>
         lineRenderer = GetComponent<LineRenderer>();
     }
 
+	private void Start()
+	{
+	    if (!PlayerManager.Instance.isVR)
+		{
+            lineRenderer.enabled = false;
+		}
+	}
+
 	private void Update()
 	{
         UpdateLength();
