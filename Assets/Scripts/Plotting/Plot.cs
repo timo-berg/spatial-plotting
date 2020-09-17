@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /// <summary>
@@ -108,7 +109,7 @@ public abstract class Plot<TDataPoint, TTuple> where TDataPoint : IDataPoint<TTu
 	/// <summary>
 	/// Returns true if the passed GameObject is part of that plot and false if it isn"t.
 	/// </summary>
-	public virtual bool SelectObject(GameObject selection)
+	public virtual bool PosessesObject(GameObject selection)
 	{
 		var match = Array.Find(plotModelInstances, element => element == selection);
 		if (match != null)
@@ -129,5 +130,10 @@ public abstract class Plot<TDataPoint, TTuple> where TDataPoint : IDataPoint<TTu
 
 		return (match != null) ? true : false;
 
+	}
+
+	public virtual bool PosessesDataPoint(TDataPoint datapoint)
+	{
+		return data.Contains(datapoint);
 	}
 }

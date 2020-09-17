@@ -14,8 +14,16 @@ public class DataInspector : MonoBehaviour
 	/// <summary>
 	/// Print text to the panel
 	/// </summary>
-	public void ShowData<T>(IDataPoint<T> dataPoint) where T : ITuple<float>
+	public void ShowData(ScatterDataPoint dataPoint)
 	{
+		dataPointPlot.text = PlotManager.Instance.GetParentPlotDataPoint(dataPoint);
+		dataPointValue.text = dataPoint.Value.ToString();
+		dataPointPosition.text = dataPoint.Coords.ToString();
+	}
+
+	public void ShowData(BarDataPoint dataPoint)
+	{
+		dataPointPlot.text = PlotManager.Instance.GetParentPlotDataPoint(dataPoint);
 		dataPointValue.text = dataPoint.Value.ToString();
 		dataPointPosition.text = dataPoint.Coords.ToString();
 	}

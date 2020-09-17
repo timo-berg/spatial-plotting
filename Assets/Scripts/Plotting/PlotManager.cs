@@ -8,7 +8,7 @@ using Valve.VR;
 /// Class that stores and handles the plot creation and visibility.
 /// Responsible for loading data, generating the plot and selecting data points.
 /// </summary>
-public class PlotManager : MonoBehaviour
+public class PlotManager : Singleton<PlotManager>
 {
 	public GameObject cube;
 	public GameObject disk;
@@ -67,7 +67,7 @@ public class PlotManager : MonoBehaviour
 			{
 				foreach (KeyValuePair<string, BarPlot> barPlot in barPlotList)
 				{
-					selected = barPlot.Value.SelectObject(hitInfo.transform.transform.gameObject);
+					selected = barPlot.Value.PosessesObject(hitInfo.transform.transform.gameObject);
 					if (selected)
 					{
 						inspector.ShowData(barPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject));
@@ -76,7 +76,7 @@ public class PlotManager : MonoBehaviour
 
 				foreach (KeyValuePair<string, ScatterPlot> scatterPlot in scatterPlotList)
 				{
-					selected = scatterPlot.Value.SelectObject(hitInfo.transform.transform.gameObject);
+					selected = scatterPlot.Value.PosessesObject(hitInfo.transform.transform.gameObject);
 					if (selected)
 					{
 						inspector.ShowData(scatterPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject));
@@ -85,6 +85,58 @@ public class PlotManager : MonoBehaviour
 
 			}
 		}
+	}
+
+	public string GetParentPlotObject(GameObject childObject)
+	{
+		string plot = "none";
+		foreach (KeyValuePair<string, BarPlot> barPlot in barPlotList)
+		{
+			selected = barPlot.Value.PosessesObject(childObject);
+			if (selected)
+			{
+				plot = barPlot.Key;
+			}
+		}
+
+		foreach (KeyValuePair<string, ScatterPlot> scatterPlot in scatterPlotList)
+		{
+			selected = scatterPlot.Value.PosessesObject(childObject);
+			if (selected)
+			{
+				plot = scatterPlot.Key;
+			}
+		}
+		return plot;
+	}
+
+	public string GetParentPlotDataPoint(ScatterDataPoint datapoint)
+	{
+		string plot = "none";
+		foreach (KeyValuePair<string, ScatterPlot> scatterPlot in scatterPlotList)
+		{
+			selected = scatterPlot.Value.PosessesDataPoint(datapoint);
+			if (selected)
+			{
+				plot = scatterPlot.Key;
+			}
+		}
+		return plot;
+	}
+
+	public string GetParentPlotDataPoint(BarDataPoint datapoint)
+	{
+		string plot = "none";
+		foreach (KeyValuePair<string, BarPlot> barPlot in barPlotList)
+		{
+			selected = barPlot.Value.PosessesDataPoint(datapoint);
+			if (selected)
+			{
+				plot = barPlot.Key;
+			}
+		}
+
+		return plot;
 	}
 
 	void TogglePlotVisibility()
