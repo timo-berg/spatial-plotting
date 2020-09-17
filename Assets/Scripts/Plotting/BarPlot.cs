@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// Overloaded Plot class to generate a bivariate bar plot
 /// </summary>
-public class BarPlot : Plot<BarDataPoint>
+public class BarPlot : Plot<BarDataPoint, TwoTuple<float>>
 {
 	protected float barWidth;
 	protected float barHeight;
@@ -40,12 +40,12 @@ public class BarPlot : Plot<BarDataPoint>
 	{
 		base.DrawPlot();
 
-		float maxValue = MathFunctions.MaxBarValue(data);
+		float maxValue = MathFunctions.MaxBarValue<BarDataPoint, TwoTuple<float>>(data);
 
 		for (int posIdx = 0; posIdx < data.Length; posIdx++)
 		{
 			tempDataBlock = GameObject.Instantiate(plotModel,
-												plotAnchor + new Vector3(data[posIdx].Coords.x, 0f, data[posIdx].Coords.y),
+												plotAnchor + new Vector3(data[posIdx].Coords.X, 0f, data[posIdx].Coords.Y),
 												Quaternion.identity);
 
 			tempDataBlock.transform.localScale = new Vector3(barWidth, barHeight * (0.001f + data[posIdx].Value / maxValue), barWidth);

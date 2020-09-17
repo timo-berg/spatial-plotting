@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 /// Generic abstract class from which all Plot classes inherit from.
 /// </summary>
 /// <typeparam name="TDataPoint">Each child class is associated with single data type</typeparam>
-public abstract class Plot<TDataPoint> where TDataPoint : IDataPoint
+public abstract class Plot<TDataPoint, TTuple> where TDataPoint : IDataPoint<TTuple>
 {
 	protected GameObject plotModel;
 	protected TDataPoint[] data;

@@ -3,7 +3,7 @@
 /// <summary>
 /// Plot class used to make a 3D scatter plot.
 /// </summary>
-public class ScatterPlot : Plot<ScatterDataPoint>
+public class ScatterPlot : Plot<ScatterDataPoint, ThreeTuple<float>>
 {
 	protected float modelSize;
 

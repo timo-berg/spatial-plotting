@@ -6,22 +6,18 @@ using UnityEngine;
 /// </summary>
 public class DataInspector : MonoBehaviour
 {
-	public TextMeshProUGUI messageText;
+	public TextMeshProUGUI dataPointPlot;
+	public TextMeshProUGUI dataPointPosition;
+	public TextMeshProUGUI dataPointValue;
 	public GameObject dataInspectorCanvas;
-
-	public void HideMessage()
-	{
-		dataInspectorCanvas.SetActive(false);
-		messageText.text = "";
-	}
 
 	/// <summary>
 	/// Print text to the panel
 	/// </summary>
-	public void ShowText(string text)
+	public void ShowData<T>(IDataPoint<T> dataPoint) where T : ITuple<float>
 	{
-		dataInspectorCanvas.SetActive(true);
-		messageText.text = text;
+		dataPointValue.text = dataPoint.Value.ToString();
+		dataPointPosition.text = dataPoint.Coords.ToString();
 	}
 
 }

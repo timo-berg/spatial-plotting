@@ -20,7 +20,7 @@ public static class MathFunctions
 	/// <summary>
 	/// Finds the maximum value of an array of a type that implements the IDataPoint interface
 	/// </summary>
-	public static float MaxBarValue<TDataPoint>(TDataPoint[] data) where TDataPoint : IDataPoint
+	public static float MaxBarValue<TDataPoint, TTuple>(TDataPoint[] data) where TDataPoint : IDataPoint<TTuple>
 	{
 		float max = data.Max(x => x.Value);
 		return max;

@@ -70,7 +70,7 @@ public class PlotManager : MonoBehaviour
 					selected = barPlot.Value.SelectObject(hitInfo.transform.transform.gameObject);
 					if (selected)
 					{
-						inspector.ShowText(barPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject).ToString());
+						inspector.ShowData(barPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject));
 					}
 				}
 
@@ -79,7 +79,7 @@ public class PlotManager : MonoBehaviour
 					selected = scatterPlot.Value.SelectObject(hitInfo.transform.transform.gameObject);
 					if (selected)
 					{
-						inspector.ShowText(scatterPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject).ToString());
+						inspector.ShowData(scatterPlot.Value.GetDataPoint(hitInfo.transform.transform.gameObject));
 					}
 				}
 

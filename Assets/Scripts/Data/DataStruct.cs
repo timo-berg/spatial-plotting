@@ -2,39 +2,44 @@
 /// Collection of data structures used throughout the library
 /// </summary>
 
+public interface ITuple<T>
+{
+	T X { get; }
 
+	string ToString();
+}
 /// <summary>
 /// Generic struct with two fields of the same type
 /// </summary> 
-public struct TwoTuple<T>
+public struct TwoTuple<T> : ITuple<T>
 {
-	public T x;
-	public T y;
+	public T X { get; }
+	public T Y { get; }
 	public TwoTuple(T x, T y)
 	{
-		this.x = x;
-		this.y = y;
+		X = x;
+		Y = y;
 	}
 
 	public override string ToString()
 	{
-		return "(" + x + ", " + y + ")";
+		return "(" + X + ", " + Y + ")";
 	}
 }
 
 /// <summary>
 /// Generic struct with three fields of the same type
 /// </summary>
-public struct ThreeTuple<T>
-{
+public struct ThreeTuple<T> : ITuple<T>
+{ 
 	public T X { get; }
 	public T Y { get; }
 	public T Z { get; }
 	public ThreeTuple(T x, T y, T z)
 	{
-		this.X = x;
-		this.Y = y;
-		this.Z = z;
+		X = x;
+		Y = y;
+		Z = z;
 	}
 
 	public override string ToString()
@@ -48,9 +53,10 @@ public struct ThreeTuple<T>
 /// <summary>
 /// Interface that has to be implemented by all data point structs
 /// </summary>
-public interface IDataPoint
+public interface IDataPoint<TTuple>
 {
 	float Value { get; }
+	TTuple Coords { get; }
 
 	string ToString();
 }
@@ -58,7 +64,7 @@ public interface IDataPoint
 /// <summary>
 /// Data type used for BarPlots. Has 2D coordinates and a value field
 /// </summary>
-public struct BarDataPoint : IDataPoint
+public struct BarDataPoint : IDataPoint<TwoTuple<float>>
 {
 	public TwoTuple<float> Coords { get; }
 	public float Value { get; }
@@ -77,7 +83,7 @@ public struct BarDataPoint : IDataPoint
 /// <summary>
 /// Collection of data structures used throughout the library
 /// </summary>
-public struct ScatterDataPoint : IDataPoint
+public struct ScatterDataPoint : IDataPoint<ThreeTuple<float>>
 {
 	public ThreeTuple<float> Coords { get; }
 	public float Value { get; }
