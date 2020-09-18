@@ -36,4 +36,9 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         
     }
+
+    public Transform GetPlayerTransform()
+	{
+        return (isVR ? VRplayer.transform : DesktopPlayer.transform);
+	}
 }

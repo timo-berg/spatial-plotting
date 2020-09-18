@@ -23,19 +23,64 @@ public class PlotManager : Singleton<PlotManager>
 
 	void Start()
 	{
-		string barFile = "IMT_sub-009_trial-1_heatmap";
-		string[] barDataString = DataHandler.GetLinesFromTextResource(barFile);
-		BarDataPoint[] barData = DataHandler.ParseBarPlotData(barDataString);
+		string barFile;
+		string[] barDataString;
+		BarDataPoint[] barData;
 
-		barPlotList.Add("U maze", new BarPlot(barData, cube, 0.05f, barHeight: 1));
-		barPlotList["U maze"].DrawPlot();
+		//Trial 1
+		barFile = "IMT_sub-009_trial-1_heatmap";
+		barDataString = DataHandler.GetLinesFromTextResource(barFile);
+		barData = DataHandler.ParseBarPlotData(barDataString);
 
-		string scatterFile = "IMT_sub-009_trial-1_scatter";
-		string[] scatterDataString = DataHandler.GetLinesFromTextResource(scatterFile);
-		ScatterDataPoint[] scatterData = DataHandler.ParseScatterPlotData(scatterDataString);
+		barPlotList.Add("U maze bar 1", new BarPlot(barData, cube, 0.05f, barHeight: 1));
+		barPlotList["U maze bar 1"].DrawPlot();
+		//Trial 2
+		barFile = "IMT_sub-009_trial-2_heatmap";
+		barDataString = DataHandler.GetLinesFromTextResource(barFile);
+		barData = DataHandler.ParseBarPlotData(barDataString);
 
-		scatterPlotList.Add("U maze", new ScatterPlot(scatterData, disk, 0.1f, new Vector3(0f, 0f, 0.25f)));
-		scatterPlotList["U maze"].DrawPlot();
+		barPlotList.Add("U maze bar 2", new BarPlot(barData, cube, 0.05f, barHeight: 1));
+		barPlotList["U maze bar 2"].DrawPlot();
+		barPlotList["U maze bar 2"].HidePlot();
+
+		//Trial 3
+		barFile = "IMT_sub-009_trial-3_heatmap";
+		barDataString = DataHandler.GetLinesFromTextResource(barFile);
+		barData = DataHandler.ParseBarPlotData(barDataString);
+
+		barPlotList.Add("U maze bar 3", new BarPlot(barData, cube, 0.05f, barHeight: 1));
+		barPlotList["U maze bar 3"].DrawPlot();
+		barPlotList["U maze bar 3"].HidePlot();
+
+
+
+		string scatterFile;
+		string[] scatterDataString;
+		ScatterDataPoint[] scatterData;
+
+		//Trial 1
+		scatterFile = "IMT_sub-009_trial-1_scatter";
+		scatterDataString = DataHandler.GetLinesFromTextResource(scatterFile);
+		scatterData = DataHandler.ParseScatterPlotData(scatterDataString, 1);
+
+		scatterPlotList.Add("U maze scatter 1", new ScatterPlot(scatterData, disk, 0.1f, new Vector3(0f, 0f, 0.25f)));
+		scatterPlotList["U maze scatter 1"].DrawPlot();
+
+		//Trial 2
+		scatterFile = "IMT_sub-009_trial-2_scatter";
+		scatterDataString = DataHandler.GetLinesFromTextResource(scatterFile);
+		scatterData = DataHandler.ParseScatterPlotData(scatterDataString, 2);
+
+		scatterPlotList.Add("U maze scatter 2", new ScatterPlot(scatterData, disk, 0.1f, new Vector3(0f, 0f, 0.25f)));
+		scatterPlotList["U maze scatter 2"].DrawPlot();
+
+		//Trial 3
+		scatterFile = "IMT_sub-009_trial-3_scatter";
+		scatterDataString = DataHandler.GetLinesFromTextResource(scatterFile);
+		scatterData = DataHandler.ParseScatterPlotData(scatterDataString, 3);
+
+		scatterPlotList.Add("U maze scatter 3", new ScatterPlot(scatterData, disk, 0.1f, new Vector3(0f, 0f, 0.25f)));
+		scatterPlotList["U maze scatter 3"].DrawPlot();
 	}
 
 	private void Update()
@@ -84,6 +129,8 @@ public class PlotManager : Singleton<PlotManager>
 				}
 
 			}
+
+	
 		}
 	}
 
@@ -143,12 +190,48 @@ public class PlotManager : Singleton<PlotManager>
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			barPlotList["U maze"].TogglePlot();
+			barPlotList["U maze bar"].TogglePlot();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			scatterPlotList["U maze"].TogglePlot();
+			scatterPlotList["U maze scatter"].TogglePlot();
+		}
+	}
+
+	public void TogglePlotVisibility(string plotName)
+	{
+		if (barPlotList.ContainsKey(plotName))
+		{
+			barPlotList[plotName].TogglePlot();
+		}
+		if (scatterPlotList.ContainsKey(plotName))
+		{
+			scatterPlotList[plotName].TogglePlot();
+		}
+	}
+
+	public void ShowPlot(string plotName)
+	{
+		if (barPlotList.ContainsKey(plotName))
+		{
+			barPlotList[plotName].ShowPlot();
+		}
+		if (scatterPlotList.ContainsKey(plotName))
+		{
+			scatterPlotList[plotName].ShowPlot();
+		}
+	}
+
+	public void HidePlot(string plotName)
+	{
+		if (barPlotList.ContainsKey(plotName))
+		{
+			barPlotList[plotName].HidePlot();
+		}
+		if (scatterPlotList.ContainsKey(plotName))
+		{
+			scatterPlotList[plotName].HidePlot();
 		}
 	}
 }

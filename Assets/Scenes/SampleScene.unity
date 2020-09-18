@@ -730,7 +730,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1295277911}
   m_PlaneDistance: 0.3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1018,8 +1018,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &330802140
-Transform:
+--- !u!224 &330802140
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1032,6 +1032,11 @@ Transform:
   m_Father: {fileID: 983915312}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330802141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,6 +1049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62742e57d71c4464fb2c975c8de47550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 131147549}
+  EventObject: {fileID: 681085083}
   pointingController: {fileID: 1466074221}
   defaultLength: 3
 --- !u!120 &330802142
@@ -1438,6 +1445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400793990}
   - component: {fileID: 400793991}
+  - component: {fileID: 400793992}
   m_Layer: 5
   m_Name: Trial1
   m_TagString: Untagged
@@ -1513,6 +1521,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &400793992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400793989}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &410686950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 674148783}
   - component: {fileID: 674148784}
+  - component: {fileID: 674148785}
   m_Layer: 5
   m_Name: Trial2
   m_TagString: Untagged
@@ -2569,6 +2591,25 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &674148785
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674148782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &681085083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5988808200750638977, guid: e74a450820e9467488a0ffd0da378cdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 359265125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &692031725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3896,6 +3937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009249241}
   - component: {fileID: 1009249242}
+  - component: {fileID: 1009249243}
   m_Layer: 5
   m_Name: Trial3
   m_TagString: Untagged
@@ -3971,6 +4013,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &1009249243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009249240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1017746667
 GameObject:
   m_ObjectHideFlags: 0
@@ -4177,7 +4232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4608,6 +4663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144025282}
   - component: {fileID: 1144025283}
+  - component: {fileID: 1144025284}
   m_Layer: 5
   m_Name: Trial1
   m_TagString: Untagged
@@ -4683,6 +4739,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &1144025284
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144025281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1160017014
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5255,12 @@ MonoBehaviour:
   mouseSensitivity: 100
   playerBody: {fileID: 1453543347}
   dataInspector: {fileID: 131147549}
+--- !u!20 &1295277911 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5988808200827894854, guid: e74a450820e9467488a0ffd0da378cdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 359265125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1306541272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5424,6 +5499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1429791539}
   - component: {fileID: 1429791540}
+  - component: {fileID: 1429791541}
   m_Layer: 5
   m_Name: Trial3
   m_TagString: Untagged
@@ -5499,6 +5575,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &1429791541
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429791538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1437129345
 GameObject:
   m_ObjectHideFlags: 0
@@ -7070,6 +7159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141634281}
   - component: {fileID: 2141634282}
+  - component: {fileID: 2141634283}
   m_Layer: 5
   m_Name: Trial2
   m_TagString: Untagged
@@ -7145,3 +7235,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &2141634283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141634280}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 20, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

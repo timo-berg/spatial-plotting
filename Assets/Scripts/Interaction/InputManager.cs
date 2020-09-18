@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using Valve.VR;
+using UnityEngine.UI;
 
 public class InputManager : Singleton<InputManager>
 {
     public GameObject pointingController;
+
+    public GameObject Radio1;
+    public GameObject Radio2;
+    public GameObject Radio3;
 
     public float defaultLength = 3f;
     private LineRenderer lineRenderer = null;
@@ -23,6 +28,7 @@ public class InputManager : Singleton<InputManager>
         {
             lineRenderer.enabled = false;
         }
+
     }
 
     private void Update()
@@ -47,11 +53,58 @@ public class InputManager : Singleton<InputManager>
         }
 
         bool hit = Physics.Raycast(ray, out RaycastHit hitInfo);
-        if (hit)
+        if (hit && hitInfo.transform.parent != null)
 		{
-            Debug.Log(hitInfo.transform.gameObject.name);
+            if (hitInfo.transform.parent.ToString().Contains("ScatterPlots") )
+			{
+                if (hitInfo.transform.gameObject.name.Contains("1"))
+                {
+                    PlotManager.Instance.TogglePlotVisibility("U maze scatter 1");
+                    hitInfo.transform.gameObject.GetComponent<Toggle>().isOn = !hitInfo.transform.gameObject.GetComponent<Toggle>().isOn;
+                }
+                if (hitInfo.transform.gameObject.name.Contains("2"))
+                {
+                    PlotManager.Instance.TogglePlotVisibility("U maze scatter 2");
+                    hitInfo.transform.gameObject.GetComponent<Toggle>().isOn = !hitInfo.transform.gameObject.GetComponent<Toggle>().isOn;
+                }
+                if (hitInfo.transform.gameObject.name.Contains("3"))
+                {
+                    PlotManager.Instance.TogglePlotVisibility("U maze scatter 3");
+                    hitInfo.transform.gameObject.GetComponent<Toggle>().isOn = !hitInfo.transform.gameObject.GetComponent<Toggle>().isOn;
+                }
+
+            }
+            if (hitInfo.transform.parent.ToString().Contains("BarPlots"))
+			{
+                if (hitInfo.transform.gameObject.name.Contains("1"))
+				{
+                    PlotManager.Instance.ShowPlot("U maze bar 1");
+                    PlotManager.Instance.HidePlot("U maze bar 2");
+                    PlotManager.Instance.HidePlot("U maze bar 3");
+                    Radio1.GetComponent<Toggle>().isOn = true;
+                    Radio2.GetComponent<Toggle>().isOn = false;
+                    Radio3.GetComponent<Toggle>().isOn = false;
+                }
+                if (hitInfo.transform.gameObject.name.Contains("2"))
+                {
+                    PlotManager.Instance.HidePlot("U maze bar 1");
+                    PlotManager.Instance.ShowPlot("U maze bar 2");
+                    PlotManager.Instance.HidePlot("U maze bar 3");
+                    Radio1.GetComponent<Toggle>().isOn = false;
+                    Radio2.GetComponent<Toggle>().isOn = true;
+                    Radio3.GetComponent<Toggle>().isOn = false;
+                }
+                if (hitInfo.transform.gameObject.name.Contains("3"))
+                {
+                    PlotManager.Instance.HidePlot("U maze bar 1");
+                    PlotManager.Instance.HidePlot("U maze bar 2");
+                    PlotManager.Instance.ShowPlot("U maze bar 3");
+                    Radio1.GetComponent<Toggle>().isOn = false;
+                    Radio2.GetComponent<Toggle>().isOn = false;
+                    Radio3.GetComponent<Toggle>().isOn = true;
+                }
+            }
         }
-        
     }
 
     

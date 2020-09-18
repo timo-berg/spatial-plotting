@@ -74,7 +74,7 @@ public abstract class Plot<TDataPoint, TTuple> where TDataPoint : IDataPoint<TTu
 
 		foreach (GameObject plotElement in plotModelInstances)
 		{
-			plotElement.GetComponent<MeshRenderer>().enabled = true;
+			plotElement.SetActive(true);
 		}
 	}
 
@@ -87,7 +87,7 @@ public abstract class Plot<TDataPoint, TTuple> where TDataPoint : IDataPoint<TTu
 
 		foreach (GameObject plotElement in plotModelInstances)
 		{
-			plotElement.GetComponent<MeshRenderer>().enabled = false;
+			plotElement.SetActive(false);
 		}
 	}
 

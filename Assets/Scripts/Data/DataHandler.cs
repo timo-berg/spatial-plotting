@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -36,7 +37,7 @@ public static class DataHandler
 
 		for (int idx = 0; idx < valuesStrings.Length; idx++)
 		{
-			parsedData[idx] = new BarDataPoint(new TwoTuple<float>(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx])), float.Parse(valuesStrings[idx]));
+			parsedData[idx] = new BarDataPoint(new TwoTuple<float>((float)Math.Round(float.Parse(xCoordsStrings[idx]),2), (float)Math.Round(float.Parse(yCoordsStrings[idx]), 2)), float.Parse(valuesStrings[idx]));
 		}
 
 		return parsedData;
@@ -46,7 +47,7 @@ public static class DataHandler
 	/// Parser for ScatterPlot data. Takes in a string array from GetLinesFromTextResource,
 	/// converts it to an array of ScatterDataPoints, and returns it
 	/// </summary>
-	public static ScatterDataPoint[] ParseScatterPlotData(string[] data)
+	public static ScatterDataPoint[] ParseScatterPlotData(string[] data, int trial)
 	{
 		string[] xCoordsStrings = data[0].Split(',');
 		string[] yCoordsStrings = data[1].Split(',');
@@ -56,7 +57,7 @@ public static class DataHandler
 
 		for (int idx = 0; idx < xCoordsStrings.Length; idx++)
 		{
-			parsedData[idx] = new ScatterDataPoint(new ThreeTuple<float>(float.Parse(xCoordsStrings[idx]), float.Parse(yCoordsStrings[idx]), float.Parse(zCoordsStrings[idx])), MathFunctions.RandomInt(1, 3));
+			parsedData[idx] = new ScatterDataPoint(new ThreeTuple<float>((float)Math.Round(float.Parse(xCoordsStrings[idx]), 2), (float)Math.Round(float.Parse(yCoordsStrings[idx]), 2), (float)Math.Round(float.Parse(zCoordsStrings[idx]), 2)), trial);
 		}
 
 		return parsedData;
