@@ -78,5 +78,4 @@ public class VRInput : Singleton<VRInput>
 	{
         return SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any);
     }
-
 }
